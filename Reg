@@ -1,0 +1,95 @@
+describe('Register test', function () {
+	it('finds the content "UAT"', function () {
+		cy.visit('https://uat-skoot.centrality.ai/account/merchant/register')
+	   
+		cy.pause()
+
+	    cy.contains("What's your email address?")  
+
+		cy.get('input[name="emailAddress"]').type('sai@sush.co.nz')
+
+        // cy.contains('next').submit()
+
+        cy.contains('next').click()
+          // .should('have.value', 'https://skootcloud-uat.azurewebsites.net/api/accounts/user/')
+
+		// cy.server()
+		// cy.route('POST', '/api/accounts/user/', {
+		// 	name: 'Abc12345',
+		// 	id: 1,
+		// 	isComplete: false
+		// })
+
+        cy.get('input[name="password"]').type('Abc12345')
+        
+        cy.get('input[name="merchantName"]').type('TestC')
+        
+        cy.get('input[name="firstName"]').type('Name')
+        
+        cy.get('input[name="lastName"]').type('Last')
+        
+        cy.get('input[name="phoneNumber"]').type('0221234567')
+
+        cy.contains('back').click()
+
+        cy.contains('next').click()
+        
+        cy.contains('next').click()
+
+        cy.contains('select').click()
+
+        cy.contains('next').click()
+
+        // cy.get('.')
+       
+//         cy.get('__PrivateStripeElement').then($iframe => {
+
+//     const iframe = $iframe.contents();
+//     // const myInput = iframe.find("cardnumber")
+//     const myInput = iframe.get('name="cardnumber"')
+//     cy.wrap(myInput).type("4111111111111111")
+
+// })
+		.get('iframe.skootwebapp')
+        .then(function ($iframe) {
+    	 const iframe = $iframe.contents()
+    	 const cardNumInput = iframe.find('input:eq(0)')
+     	 const cardValidInput = iframe.find('input:eq(1)')
+    	 const cvcInput = iframe.find('input:eq(2)')
+
+    cardNumInput.val('4111111111111111').trigger('change')
+    cardValidInput.val('1222').trigger('change')
+    cvcInput.val('123').trigger('change')
+
+    return new Cypress.Promise
+    	.delay(1000)
+    	.then(() => {
+        iframe.find('button').click()
+    })
+})
+//         // cy.get('.__PrivateStripeElement').click({force: true})
+        // cy.pause()
+       
+
+		// cy.get('__privateStripeFrame3').then(function($__privateStripeFrame3)){
+		// 	var e = $__privateStripeFrame3.contents().find("body")
+
+	
+  //       cy.get('input[name="Cardname"]').type('4111 1111 1111 1111')
+		// 	return null
+		// }
+		
+		// .type('4111111111111111')
+
+        // cy.get('.InputElement is-empty').type('4111 1111 1111 1111')
+
+        // cy.get('.CardField-input-wrapper is-ready-to-slide').type('4111 1111 1111 1111  11/20 123')
+a
+        // cy.get('input[type="tel"]').type('4111 1111 1111 1111')
+        
+
+        // cy.get('input[name="exp-date"]').type('10/20 123')
+        // cy.contains('next').click()
+
+      })
+})
